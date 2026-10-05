@@ -1,0 +1,19 @@
+FL_BattleGrounds27 - SOURCE PACKAGE
+
+This ZIP is source code. FL needs the compiled Windows VST3, not this ZIP.
+Use GitHub's website:
+
+1. Create a repo named FL_BattleGrounds27.
+2. Extract the ZIP and upload the CONTENTS of its FL_BattleGrounds27 folder.
+   CMakeLists.txt, Source, Tests and Assets must be at the repo's top level.
+3. Add file > Create new file. Name it:
+   .github/workflows/build-windows.yml
+   Paste ALL of WORKFLOW-COPY.txt into it. Commit changes.
+4. Open Actions > Build FL_BattleGrounds27 Windows VST3.
+5. Open the successful green run and download its artifact:
+   FL_BattleGrounds27-Windows-VST3.
+6. Extract that artifact. Right-click Install-FL-BattleGrounds27.cmd > Run as administrator.
+7. Follow INSTALL.txt to scan and open the plugin in FL Studio's Mixer.
+
+No other plugin, browser, sampler or internet connection is needed to play
+once the Windows plugin is built and installed.

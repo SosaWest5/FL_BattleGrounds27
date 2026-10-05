@@ -1,0 +1,18 @@
+FL_BattleGrounds27 1.0.0 - verification
+
+Built on Linux x86_64 with GCC 12, CMake and JUCE 8.0.6.
+Native VST3 effect and standalone targets built successfully.
+JUCE VST3 helper loaded the module and generated its Fx class metadata.
+CTest BattleGameplay passed; tests cover timing, scoring, streaks, off-beat
+penalties, 30-second finish and 48 MC/difficulty combinations.
+AddressSanitizer/UndefinedBehaviorSanitizer gameplay checks passed with leak
+detection disabled because this execution environment blocks /proc task access.
+Native GUI snapshots and embedded audio smoke checks passed under Xvfb.
+Idle input audio passthrough, all 24 decoded vocal clips, saved preferences
+and paused clock were checked.
+Five-second generated audio demo: stereo 48kHz; peak 0.332, no clipping.
+
+Previews are snapshots from the actual native game, not mockups.
+Windows and FL Studio have not been run in this environment.
+Use the included GitHub Actions workflow to build the Windows x64 VST3.
+The source ZIP cannot be installed directly into FL Studio.

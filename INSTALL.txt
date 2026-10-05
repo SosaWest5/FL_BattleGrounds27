@@ -1,0 +1,50 @@
+FL_BattleGrounds27 - native Windows x64 VST3 MIXER EFFECT
+
+INSTALL
+Extract the FL_BattleGrounds27-Windows-VST3 GitHub artifact.
+Right-click Install-FL-BattleGrounds27.cmd and choose Run as administrator.
+It copies the ENTIRE FL_BattleGrounds27.vst3 folder into:
+C:\Program Files\Common Files\VST3
+Keep the .vst3 folder's internal Contents structure intact.
+
+FL STUDIO
+Options > Manage plugins. Enable Verify plugins and click Find installed plugins.
+Open an empty Mixer effect slot > More plugins > FL_BattleGrounds27.
+It is an EFFECT, not a generator for the Channel Rack.
+If not found, check the installation folder and the Plugin Manager error/status.
+The standalone EXE can test the game independently but is not the mixer plugin.
+
+PLAY
+Pick Peace-maker, Sunlyt, Plenty or BASHH, then opponent and difficulty.
+Click START BATTLE, click inside the game window, and enable the wrapper's
+Typing Keyboard Priority option so the game gets keyboard shortcuts first.
+Turn off Typing keyboard to piano keyboard if FL still intercepts letters.
+W / A / S / D = tap the corresponding colored note when it reaches its ring.
+Do not hold keys. Auto-repeat will not farm points. Off-beat taps cost 25 points.
+P or Escape = pause. Losing keyboard focus pauses the battle automatically.
+Click the game again and RESUME or press P to continue.
+
+RULES
+One 30-second round: YOU 5s > OPPONENT 5s, repeated three times.
+Both MCs get 15 seconds and six original bars. Your notes count only on your turn.
+Watch the AI perform during its turns. Highest flow points wins; exact tie = draw.
+Perfect <=45ms: 100 base points. Clean <=85ms: 75. On beat <=120ms: 45.
+Each hit adds a small MC punchline bonus and the streak multiplier:
+1x initially, 2x at 8 hits, 3x at 16 hits, 4x at 24 hits.
+Misses and wrong taps reset your streak. Crowd bar shows each side's score share.
+Rookie has 24 notes per MC; Battle 30; Headliner 39.
+AI accuracy responds to difficulty and the opponent's flow rating.
+
+AUDIO
+Original synthesized 120 BPM beat and 24 offline synthetic vocal clips are baked
+into the plugin. Voices are stylized computer speech, not human rap recordings.
+Vocal volume dips after a miss and recovers on a hit. Lyrics stay visible.
+Game Volume controls generated game audio only; Vocals toggles the voice layer.
+Input audio passes through unchanged. Pause/menu silence the game's added audio.
+Start FL's audio engine; transport playback is not required. If FL suspends an
+idle mixer effect, disable Smart disable for this plugin so its audio continues.
+Game timing itself follows a monotonic clock independently of FL transport.
+
+MC/difficulty/volume/vocal preferences are saved with the FL project.
+Closing the plugin editor ends the current battle; match progress is not saved.
+This version is solo vs AI with keyboard input. No online mode or gamepad support.

@@ -1,0 +1,10 @@
+#include "../Source/PluginEditor.h"
+#include <juce_audio_formats/juce_audio_formats.h>
+#include <iostream>
+#include <stdexcept>
+int main(int argc,char** argv){juce::ScopedJuceInitialiser_GUI gui;BattleProcessor p;if(!p.hasAllVoices())throw std::runtime_error("missing embedded voices");p.prepareToPlay(48000,256);juce::AudioBuffer<float> b(2,256);juce::MidiBuffer midi;for(int c=0;c<2;++c)for(int i=0;i<256;++i)b.setSample(c,i,.125f);p.processBlock(b,midi);for(int c=0;c<2;++c)for(int i=0;i<256;++i)if(b.getSample(c,i)!=.125f)throw std::runtime_error("idle passthrough");
+ p.home=2;juce::MemoryBlock state;p.getStateInformation(state);p.home=0;p.setStateInformation(state.getData(),int(state.getSize()));if(p.home!=2)throw std::runtime_error("state restore");
+ std::unique_ptr<BattleEditor> editor(static_cast<BattleEditor*>(p.createEditor()));auto save=[&](const char* name){if(argc<2)return;auto image=editor->createComponentSnapshot(editor->getLocalBounds());juce::File f(juce::String(argv[1])+"/"+name);f.deleteFile();auto out=f.createOutputStream();if(!out||!juce::PNGImageFormat().writeImageToStream(image,*out))throw std::runtime_error("preview save");};save("MC-selection.png");editor->startBattle();editor->advanceTo(7.25);save("nightclub-battle.png");
+ b.clear();p.processBlock(b,midi);if(b.getMagnitude(0,256)<.001f)throw std::runtime_error("game audio silent");p.pause(true);double t=p.battleTime();p.processBlock(b,midi);if(p.battleTime()!=t)throw std::runtime_error("pause clock drift");
+ if(argc>1){p.pause(false);p.begin();p.vocals=true;juce::AudioBuffer<float> mix(2,48000*5);mix.clear();p.processBlock(mix,midi);juce::File file(juce::String(argv[1])+"/audio-demo.wav");file.deleteFile();auto out=file.createOutputStream();juce::WavAudioFormat fmt;auto* writer=fmt.createWriterFor(out.release(),48000,2,16,{},0);if(!writer)throw std::runtime_error("audio save");std::unique_ptr<juce::AudioFormatWriter> own(writer);writer->writeFromAudioSampleBuffer(mix,0,mix.getNumSamples());}
+ editor.reset();std::cout<<"Native renderer, audio, preference state and pause checks passed\n";}
