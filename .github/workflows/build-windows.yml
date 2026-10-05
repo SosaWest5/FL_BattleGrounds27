@@ -1,0 +1,31 @@
+name: Build FL_BattleGrounds27 Windows VST3
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Windows x64
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+      - name: Build native game
+        run: cmake --build build --config Release --parallel 2
+      - name: Test battle logic
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package plugin and installer
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item 'build/FL_BattleGrounds27_artefacts/Release/VST3/FL_BattleGrounds27.vst3' dist -Recurse
+          Copy-Item 'build/FL_BattleGrounds27_artefacts/Release/Standalone/FL_BattleGrounds27.exe' dist
+          Copy-Item Install-FL-BattleGrounds27.cmd dist
+          Copy-Item INSTALL.txt dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FL_BattleGrounds27-Windows-VST3
+          path: dist/
+          if-no-files-found: error
